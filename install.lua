@@ -22,7 +22,7 @@ if argc >= 1 then
 
     local setup_info = textutils.unserializeJSON(http.get(data[program]).readAll())
 
-    for fn, url in pair(setup_info.files) do
+    for fn, url in pairs(setup_info.files) do
         local file = fs.open(fn, "w")
         file.write(http.get(url).readAll())
         file.close()
