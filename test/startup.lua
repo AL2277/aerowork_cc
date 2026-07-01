@@ -1,0 +1,1 @@
+shell.run("/program/hello_world")
