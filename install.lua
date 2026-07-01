@@ -13,14 +13,14 @@ if argc >= 1 then
         return
     end
 
-    local data = textutils.unserialize(request.readAll())
+    local data = textutils.unserializeJSON(request.readAll())
 
     if data[program] == nil then
         print("Unknown program: " .. program)
         return
     end
 
-    local setup_info = textutils.unserialize(http.get(data[program]).readAll())
+    local setup_info = textutils.unserializeJSON(http.get(data[program]).readAll())
 
     for fn, url in pair(setup_info.files) do
         local file = fs.open(fn, "w")
