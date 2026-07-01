@@ -1,0 +1,37 @@
+local argv = {...}
+local argc = #argv
+
+if argc > 1 then
+    local program = argv[1]
+
+    local request, err, code = http.get("https://raw.githubusercontent.com/AL2277/aerowork_cc/master/program_list.txt")
+
+    if request == nil then
+        print("failed to access program list")
+        print("error: " .. err)
+        print("code: " .. code)
+        return
+    end
+
+    local data = textutils.unserialize(request.readAll())
+
+    if data[program] == nil then
+        print("Unknown program: " .. program)
+        return
+    end
+
+    local setup_info = textutils.unserialize(http.get("https://raw.githubusercontent.com/AL2277/aerowork_cc/master/" .. data[program] .. "/file_list.json").readAll())
+
+    for fn, url in pair(setup_info.files) do
+        local file = fs.open(fn, "w")
+        file.write(http.get(url).readAll())
+        file.close()
+    end
+
+    if setup_info.setup ~= nil then
+        shell.run("wget", "run", setup_info.setup)
+    end
+
+else
+    print("Error: Missing name")
+end
