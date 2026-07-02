@@ -7,6 +7,10 @@ if not peripheral.hasType(monitor, "monitor") then
     error("Fail to access monitor, unable to alert.")
 end
 
+monitor.setBackgroundColor(colors.black)
+monitor.setTextColor(colors.red)
+monitor.clear()
+
 local function alert_error_init()
     monitor.setBackgroundColor(colors.black)
     monitor.setTextColor(colors.red)
@@ -46,9 +50,26 @@ end
 
 local address_book = textutils.unserializeJSON(request.readAll())
 
-local file = fs.open("this_address.json", "r")
+file = fs.open("this_address.json", "r")
 local this_address = textutils.unserializeJSON(file.readAll())
 file.close()
 
 local this_station = this_address.station
 local this_house = this_address.house
+
+local function send_package_to_address(station, house)
+    for slot, _ in pairs(input_inv.list()) do
+        input_inv.pushItems(peripheral.getName(output_inv), slot)
+    end
+    -- TODO: send package
+end
+
+local function send_package_to_name(name)
+    if address_book[name] == nil then
+        alert_error_init()
+        error("name not in address book")
+    end
+    send_package_to_address(address_book[name].station, address_book[name].house)
+end
+
+send_package_to_name("Albert")
