@@ -6,6 +6,7 @@
         "shell",
         "write",
         "read",
-        "peripheral"
+        "peripheral",
+        "colors"
     ]
 }
