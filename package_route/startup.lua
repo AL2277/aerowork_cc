@@ -13,9 +13,9 @@ local function alert_error_init()
     monitor.clear()
     monitor.setCursorPos(1, 1)
     monitor.write("An error has occurred")
-    monitor.setCursorPos(2, 1)
+    monitor.setCursorPos(1, 2)
     monitor.write("Please contract AlbertLin2288")
-    monitor.setCursorPos(4, 1)
+    monitor.setCursorPos(1, 4)
 end
 
 local function alert_missing(name)
