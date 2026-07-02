@@ -29,7 +29,10 @@ if argc >= 1 then
     end
 
     if setup_info.setup ~= nil then
-        shell.run("wget", "run", setup_info.setup)
+        local file = fs.open("/setup.lua", "w")
+        file.write(http.get(setup_info.setup).readAll())
+        file.close()
+        shell.run("setup_info")
     end
 
 else
