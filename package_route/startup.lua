@@ -24,14 +24,14 @@ local function alert_missing(name)
     error("Missing peripheral: " .. name)
 end
 
+if not peripheral.hasType(peripheral_names.input_inv, "inventory") then alert_missing("Input inventory") end
+if not peripheral.hasType(peripheral_names.output_inv, "inventory") then alert_missing("Output inventory") end
+if not peripheral.hasType(peripheral_names.packager, "Create_Packager") then alert_missing("Packager") end
+if not peripheral.hasType(peripheral_names.frogport, "packageport") then alert_missing("Frogport") end
 local input_inv = peripheral.wrap(peripheral_names.input_inv)
-if not peripheral.hasType(input_inv, "inventory") then alert_missing("Input inventory") end
 local output_inv = peripheral.wrap(peripheral_names.output_inv)
-if not peripheral.hasType(output_inv, "inventory") then alert_missing("Output inventory") end
 local packager = peripheral.wrap(peripheral_names.packager)
-if not peripheral.hasType(packager, "Create_Packager") then alert_missing("Packager") end
 local frogport = peripheral.wrap(peripheral_names.frogport)
-if not peripheral.hasType(frogport, "packageport") then alert_missing("Frogport") end
 
 
 local request, err, code = http.get("https://raw.githubusercontent.com/AL2277/aerowork_cc/master/package_route/address_book.json")
