@@ -3,6 +3,9 @@
         "fs",
         "http",
         "textutils",
-        "shell"
+        "shell",
+        "write",
+        "read",
+        "peripheral"
     ]
 }
