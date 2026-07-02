@@ -20,6 +20,8 @@ if argc >= 1 then
         return
     end
 
+    print("Gathering package")
+
     local setup_info = textutils.unserializeJSON(http.get(data[program]).readAll())
 
     for fn, url in pairs(setup_info.files) do
@@ -27,6 +29,8 @@ if argc >= 1 then
         file.write(http.get(url).readAll())
         file.close()
     end
+
+    print("Installing")
 
     if setup_info.setup ~= nil then
         local file = fs.open("/setup.lua", "w")
