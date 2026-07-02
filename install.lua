@@ -32,7 +32,7 @@ if argc >= 1 then
         local file = fs.open("/setup.lua", "w")
         file.write(http.get(setup_info.setup).readAll())
         file.close()
-        shell.run("setup_info")
+        shell.run("setup")
     end
 
 else
