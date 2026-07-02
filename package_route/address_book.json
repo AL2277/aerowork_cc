@@ -2,5 +2,9 @@
     "Albert" : {
         "station" : "albert",
         "house" : "albert"
+    },
+    "Max's shop" : {
+        "station" : "spawn",
+        "house" : "max_shop"
     }
 }

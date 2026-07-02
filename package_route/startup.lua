@@ -58,10 +58,20 @@ local this_station = this_address.station
 local this_house = this_address.house
 
 local function send_package_to_address(station, house)
+    -- TODO: set status to sending
+
     for slot, _ in pairs(input_inv.list()) do
         input_inv.pushItems(peripheral.getName(output_inv), slot)
     end
-    -- TODO: send package
+
+    packager.setAddress("post-" .. this_station .. station .. house)
+
+    while next(output_inv.list()) ~= nil do
+        packager.makePackage()
+        os.pullEvent("package_sent")
+    end
+
+    -- TODO: change status to normal
 end
 
 local function send_package_to_name(name)
