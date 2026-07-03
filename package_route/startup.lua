@@ -60,7 +60,7 @@ local this_house = this_address.house
 local name_list = {}
 
 for name, _ in pairs(address_book) do
-    name_list[#name_list] = name
+    name_list[#name_list+1] = name
 end
 
 local TABSIZE = 16
@@ -77,12 +77,12 @@ local function display_names()
             monitor.setTextColor(colors.black)
         end
         monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i / COLUMNS) + 1)
-        monitor.write(name_list[i])
+        monitor.write(name_list[i+1])
         if i == selected then
             monitor.setBackgroundColor(colors.black)
             monitor.setTextColor(colors.white)
         end
-        monitor.write(TABSIZE - #(name_list[i]))
+        monitor.write(TABSIZE - #(name_list[i+1]))
     end
 end
 
