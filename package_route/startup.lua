@@ -115,7 +115,7 @@ while true do
     display_names()
 
     monitor.setBackgroundColor(colors.white)
-    monitor.setTextColor(colors.white)
+    monitor.setTextColor(colors.black)
     monitor.setCursorPos(1, monitor_height-2)
     monitor.write("        ")
     monitor.setCursorPos(1, monitor_height-1)
@@ -127,6 +127,7 @@ while true do
 
     if x <= 8 and y >= monitor_height-2 then
         monitor.setBackgroundColor(colors.black)
+        monitor.setTextColor(colors.black)
         monitor.clear()
         local msg = "Sending..."
         monitor.setCursorPos(math.ceil((monitor_width - #msg)/2), math.ceil(monitor_height/2))
@@ -137,7 +138,7 @@ while true do
     else
         local click_index = math.floor((x-1) / TABSIZE) + (y-1) * COLUMNS
         if click_index < #name_list then
-            if (x-1) % TABSIZE < #(name_list[click_index]) then
+            if (x-1) % TABSIZE < #(name_list[click_index+1]) then
                 selected = click_index
             end
         end
