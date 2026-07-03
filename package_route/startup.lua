@@ -51,12 +51,18 @@ end
 
 local address_book = textutils.unserializeJSON(request.readAll())
 
-file = fs.open("this_address.json", "r")
-local this_address = textutils.unserializeJSON(file.readAll())
+file = fs.open("this_address.txt", "r")
+local this_name = file.readAll()
 file.close()
 
-local this_station = this_address.station
-local this_house = this_address.house
+if address_book[this_name] == nil then
+    alert_error_init()
+    monitor.write("Incorrect configuration for current address")
+    error("Current name not in address book")
+end
+
+local this_station = address_book[this_name].station
+local this_house = address_book[this_name].house
 
 local name_list = {}
 
@@ -77,8 +83,12 @@ local function display_names()
             monitor.setBackgroundColor(colors.white)
             monitor.setTextColor(colors.black)
         end
-        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i / COLUMNS) + 1)
-        monitor.write(name_list[i+1])
+        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i / COLUMNS)*3 + 1)
+        monitor.write(string.rep(" ", #name_list[i+1] + 2))
+        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i / COLUMNS)*3 + 2)
+        monitor.write(" " .. name_list[i+1] .. " ")
+        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i / COLUMNS)*3 + 3)
+        monitor.write(string.rep(" ", #name_list[i+1] + 2))
         if i == selected then
             monitor.setBackgroundColor(colors.black)
             monitor.setTextColor(colors.white)
@@ -92,7 +102,12 @@ local function send_package_to_address(station, house)
         input_inv.pushItems(peripheral.getName(output_inv), slot)
     end
 
-    packager.setAddress("post-" .. this_station .. "-" .. station .. "-" .. house)
+    local source_station = this_station
+    if source_station == station then
+        source_station = "same"
+    end
+
+    packager.setAddress("post-" .. source_station .. "-" .. station .. "-" .. house)
 
     while next(output_inv.list()) ~= nil do
         packager.makePackage()
@@ -136,8 +151,8 @@ while true do
         monitor.setBackgroundColor(colors.black)
         monitor.clear()
     else
-        local click_index = math.floor((x-1) / TABSIZE) + (y-1) * COLUMNS
-        if click_index < #name_list then
+        local click_index = math.floor((x-1) / TABSIZE) + math.floor((y-1) / 3) * COLUMNS
+        if click_index < #name_list + 2 then
             if (x-1) % TABSIZE < #(name_list[click_index+1]) then
                 selected = click_index
             end

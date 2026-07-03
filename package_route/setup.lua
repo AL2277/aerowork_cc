@@ -43,22 +43,20 @@ end
 
 local config_address = true
 
-if fs.exists("/this_address.json") then
+if fs.exists("/this_address.txt") then
     print("Address for current house found: ")
-    local file = fs.open("/this_address.json", "r")
+    local file = fs.open("/this_address.txt", "r")
     print(file.readAll())
     file.close()
     config_address = terminal.yes_no("Overwrite? (y/n): ")
 end
 
 if config_address then
-    write("Current station: ")
-    local station = read()
-    write("Current house: ")
-    local house = read()
+    write("Current name: ")
+    local name = read()
 
-    local file = fs.open("/this_address.json", "w")
-    file.write(textutils.serializeJSON({station = station, house = house}))
+    local file = fs.open("/this_address.txt", "w")
+    file.write(name)
     file.close()
 end
 
