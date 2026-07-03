@@ -63,8 +63,8 @@ for name, _ in pairs(address_book) do
     name_list[#name_list] = name
 end
 
-local TABSIZE <const> = 16
-local COLUMNS <const> = 5
+local TABSIZE = 16
+local COLUMNS = 5
 
 local selected = 0
 
@@ -76,7 +76,7 @@ local function display_names()
             monitor.setBackgroundColor(colors.white)
             monitor.setTextColor(colors.black)
         end
-        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, i // COLUMNS + 1)
+        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i // COLUMNS) + 1)
         monitor.write(name_list[i])
         if i == selected then
             monitor.setBackgroundColor(colors.black)
