@@ -1,5 +1,5 @@
 {
-    "version": "0.1.1",
+    "version": "0.1.2",
     "setup" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/package_route/setup.lua",
     "files" : {
         "startup.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/package_route/startup.lua",
