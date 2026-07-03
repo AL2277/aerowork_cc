@@ -20,9 +20,28 @@ if argc >= 1 then
         return
     end
 
-    print("Gathering package")
+    print("Gathering program info")
 
     local setup_info = textutils.unserializeJSON(http.get(data[program]).readAll())
+
+    local version = setup_info.version
+
+    if fs.exists("/version.txt") then
+        local file = fs.open("/version.txt", "r")
+        local version_cur = file.readAll()
+        file.close()
+        print("Current version: " .. version_cur)
+        if version_cur == version then
+            print("Already up to date")
+            return
+        else
+            print("Updating to version: " .. version)
+        end
+    else
+        print("Installing version: " .. version)
+    end
+
+    print("Downloading")
 
     for fn, url in pairs(setup_info.files) do
         local file = fs.open(fn, "w")
