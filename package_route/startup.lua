@@ -76,7 +76,7 @@ local function display_names()
             monitor.setBackgroundColor(colors.white)
             monitor.setTextColor(colors.black)
         end
-        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i // COLUMNS) + 1)
+        monitor.setCursorPos(TABSIZE * (i % COLUMNS) + 1, math.floor(i / COLUMNS) + 1)
         monitor.write(name_list[i])
         if i == selected then
             monitor.setBackgroundColor(colors.black)
