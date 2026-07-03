@@ -41,6 +41,10 @@ if argc >= 1 then
         print("Installing version: " .. version)
     end
 
+    local file = fs.open("/version.txt", "w")
+    file.write(version)
+    file.close()
+
     print("Downloading")
 
     for fn, url in pairs(setup_info.files) do
