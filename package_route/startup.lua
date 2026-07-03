@@ -7,8 +7,9 @@ if not peripheral.hasType(monitor, "monitor") then
     error("Fail to access monitor, unable to alert.")
 end
 
+local monitor_width, monitor_height = monitor.getSize()
+
 monitor.setBackgroundColor(colors.black)
-monitor.setTextColor(colors.red)
 monitor.clear()
 
 local function alert_error_init()
@@ -82,13 +83,11 @@ local function display_names()
             monitor.setBackgroundColor(colors.black)
             monitor.setTextColor(colors.white)
         end
-        monitor.write(TABSIZE - #(name_list[i+1]))
+        -- monitor.write(TABSIZE - #(name_list[i+1]))
     end
 end
 
 local function send_package_to_address(station, house)
-    -- TODO: set status to sending
-
     for slot, _ in pairs(input_inv.list()) do
         input_inv.pushItems(peripheral.getName(output_inv), slot)
     end
@@ -99,8 +98,6 @@ local function send_package_to_address(station, house)
         packager.makePackage()
         sleep(0.1)
     end
-
-    -- TODO: change status to normal
 end
 
 local function send_package_to_name(name)
@@ -111,6 +108,38 @@ local function send_package_to_name(name)
     send_package_to_address(address_book[name].station, address_book[name].house)
 end
 
-display_names()
+while true do
+    monitor.setBackgroundColor(colors.black)
+    monitor.clear()
 
-send_package_to_name("Albert")
+    display_names()
+
+    monitor.setBackgroundColor(colors.white)
+    monitor.setTextColor(colors.white)
+    monitor.setCursorPos(1, monitor_height-2)
+    monitor.write("        ")
+    monitor.setCursorPos(1, monitor_height-1)
+    monitor.write("  Send  ")
+    monitor.setCursorPos(1, monitor_height)
+    monitor.write("        ")
+
+    local event, _, x, y = os.pullEvent("monitor_touch")
+
+    if x <= 8 and y >= monitor_height-2 then
+        monitor.setBackgroundColor(colors.black)
+        monitor.clear()
+        local msg = "Sending..."
+        monitor.setCursorPos(math.ceil((monitor_width - #msg)/2), math.ceil(monitor_height/2))
+        monitor.write(msg)
+        send_package_to_name(name_list[selected+1])
+        monitor.setBackgroundColor(colors.black)
+        monitor.clear()
+    else
+        local click_index = math.floor((x-1) / TABSIZE) + (y-1) * COLUMNS
+        if click_index < #name_list then
+            if (x-1) % TABSIZE < #(name_list[click_index]) then
+                selected = click_index
+            end
+        end
+    end
+end
