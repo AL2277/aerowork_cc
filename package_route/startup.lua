@@ -67,11 +67,13 @@ local this_house = address_book[this_name].house
 local name_list = {}
 
 for name, _ in pairs(address_book) do
-    name_list[#name_list+1] = name
+    if name ~= this_name then
+        name_list[#name_list+1] = name
+    end
 end
 
-local TABSIZE = 16
-local COLUMNS = 5
+TABSIZE = 16
+COLUMNS = 5
 
 local selected = 0
 
