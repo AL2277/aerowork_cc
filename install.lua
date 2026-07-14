@@ -1,6 +1,6 @@
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
-VERSION_PATCH = 3
+VERSION_PATCH = 4
 
 VERSION = string.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 
@@ -24,6 +24,7 @@ if data.installer_version ~= VERSION then
         write("Installer outdated, update installer?")
         local ans = read()
         if ans == "y" then
+            shell.rm("install")
             shell.run("wget https://raw.githubusercontent.com/AL2277/aerowork_cc/master/install.lua install")
             shell.run("install", ...)
             return
