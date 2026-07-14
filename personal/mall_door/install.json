@@ -1,0 +1,8 @@
+{
+    "version" : "1.0.0",
+    "setup" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/personal/mall_door/setup.lua",
+    "dependency" : ["std"],
+    "files" : {
+        "startup.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/personal/mall_door/startup.lua"
+    }
+}
