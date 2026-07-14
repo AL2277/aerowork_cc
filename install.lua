@@ -1,6 +1,6 @@
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
-VERSION_PATCH = 2
+VERSION_PATCH = 3
 
 VERSION = string.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 
@@ -49,7 +49,7 @@ local function install(program, path)
 
     local version = setup_info.version
 
-    local version_path = fs.combine(path, "version.txt")
+    local version_path = fs.combine(path, "version_" .. program .. ".txt")
     if fs.exists(version_path) then
         local file = fs.open(version_path, "r")
         local version_cur = file.readAll()
