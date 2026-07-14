@@ -1,4 +1,5 @@
 print("setting up")
+package.path = package.path .. ";/packages"
 local terminal = require("utils.terminal")
 
 local require_name = true

@@ -1,6 +1,7 @@
 {
     "version" : "1.0.0",
     "setup" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/test/setup.lua",
+    "dependency" : [],
     "files" : {
         "startup.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/test/startup.lua",
         "program/hello_world.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/test/hello_world.lua"

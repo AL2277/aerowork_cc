@@ -1,6 +1,7 @@
 {
     "version": "0.2.2",
     "setup" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/package_route/setup.lua",
+    "dependency" : [],
     "files" : {
         "startup.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/package_route/startup.lua",
         "utils/terminal.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/utils/terminal.lua"
