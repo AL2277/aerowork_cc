@@ -32,10 +32,10 @@ parallel.waitForAny(
         while true do
             clutch.setOutput("bottom", false)
             local angle = bearing.getAngle()
-            if angle < 0-TOL or (state == 1 and angle < 51 - TOL) then
+            if (state == 1 and angle < 51 - TOL) then
                 gearshift.setOutput("bottom", true)
                 clutch.setOutput("bottom", true)
-            elseif angle > 51 + TOL or (state == 0 and angle > 0 + TOL) then
+            elseif (state == 0 and angle > 0 + TOL) then
                 gearshift.setOutput("bottom", false)
                 clutch.setOutput("bottom", true)
             end
