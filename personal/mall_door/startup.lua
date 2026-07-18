@@ -1,7 +1,4 @@
 package.path = package.path .. ";/package/?.lua"
-local std = require("std")
-std.include("priority_queue")
-
 
 local file = fs.open("/peripheral_names.json", "r")
 local peripheral_names = textutils.unserialize(file.readAll())
@@ -20,25 +17,34 @@ local state = 0
 
 TOL = 1
 
-while true do
-    if #(player.getPlayersInRange(10)) > 0 then
-        state = 0
-    else
-        state = 1
-    end
-    clutch.setOutput("bottom", false)
-    local angle = bearing.getAngle()
-    if angle < 0-TOL or (state == 1 and angle < 51 - TOL) then
-        gearshift.setOutput("bottom", true)
-        clutch.setOutput("bottom", true)
-    elseif angle > 51 + TOL or (state == 0 and angle > 0 + TOL) then
-        gearshift.setOutput("bottom", false)
-        clutch.setOutput("bottom", true)
-    end
-    os.sleep(0.05)
-end
+parallel.waitForAny(
+    (function ()
+        while true do
+            if #(player.isPlayersInRange(10)) > 0 then
+                state = 0
+            else
+                state = 1
+            end
+            os.sleep(0.05)
+        end
+    end),
+    (function ()
+        while true do
+            clutch.setOutput("bottom", false)
+            local angle = bearing.getAngle()
+            if angle < 0-TOL or (state == 1 and angle < 51 - TOL) then
+                gearshift.setOutput("bottom", true)
+                clutch.setOutput("bottom", true)
+            elseif angle > 51 + TOL or (state == 0 and angle > 0 + TOL) then
+                gearshift.setOutput("bottom", false)
+                clutch.setOutput("bottom", true)
+            end
+            os.sleep(0.05)
+        end
+    end)
+)
 
--- g=peripheral.wrap("redstone_relay_2");c=peripheral.wrap("redstone_relay_3");b=peripheral.wrap("Create_MechanicalBearing_0")
+-- g=peripheral.wrap("redstone_relay_4");c=peripheral.wrap("redstone_relay_5");b=peripheral.wrap("Create_MechanicalBearing_1")
 -- function r(x)sleep(0.05);if x>0 then g.setOutput("bottom", false) else g.setOutput("bottom", true) end; c.setOutput("bottom", true);sleep(math.abs(x)*0.05);c.setOutput("bottom", false)end
 
 
