@@ -1,3 +1,4 @@
+package.path = package.path .. ";/packages"
 local terminal = require("utils.terminal")
 
 print("setting up")
