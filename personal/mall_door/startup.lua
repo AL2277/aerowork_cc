@@ -1,4 +1,4 @@
-package.path = package.path .. ";/packages"
+package.path = package.path .. ";/packages/?.lua"
 local std = require("std")
 std.include("priority_queue")
 

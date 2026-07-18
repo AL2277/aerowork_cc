@@ -1,5 +1,5 @@
 print("setting up")
-package.path = package.path .. ";/packages"
+package.path = package.path .. ";/packages/?.lua"
 local terminal = require("utils.terminal")
 
 local require_name = true
