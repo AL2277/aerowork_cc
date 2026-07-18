@@ -1,4 +1,4 @@
-package.path = package.path .. ";/packages/?.lua"
+package.path = package.path .. ";/package/?.lua"
 local terminal = require("utils.terminal")
 
 print("setting up")

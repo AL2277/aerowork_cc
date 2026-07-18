@@ -1,10 +1,10 @@
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
-VERSION_PATCH = 7
+VERSION_PATCH = 8
 
 VERSION = string.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 
-package.path = package.path .. ";/packages/?.lua"
+package.path = package.path .. ";/package/?.lua"
 local argv = {...}
 local argc = #argv
 
