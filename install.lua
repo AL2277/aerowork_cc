@@ -1,6 +1,6 @@
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
-VERSION_PATCH = 6
+VERSION_PATCH = 7
 
 VERSION = string.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 
@@ -27,7 +27,7 @@ if data.installer_version ~= VERSION then
             fs.delete("/install")
             shell.run("wget https://raw.githubusercontent.com/AL2277/aerowork_cc/master/install.lua install")
             shell.run("install", ...)
-            return
+            break
         elseif ans == "n" then
             break
         end
