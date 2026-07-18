@@ -20,7 +20,7 @@ TOL = 1
 parallel.waitForAny(
     (function ()
         while true do
-            if #(player.isPlayersInRange(10)) > 0 then
+            if player.isPlayersInRange(10) then
                 state = 0
             else
                 state = 1
