@@ -1,6 +1,6 @@
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
-VERSION_PATCH = 10
+VERSION_PATCH = 11
 
 VERSION = string.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 
@@ -118,7 +118,7 @@ if argc >= 1 then
 
     local force = 0
     if argc >= 2 then
-        if argv[2][1] == "-" then
+        if string.sub(argv[2], 1, 1) == "-" then
             if string.find(argv[2], "f") then
                 force = 1
                 if string.find(argv[2], "r") then
