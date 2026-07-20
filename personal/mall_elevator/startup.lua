@@ -145,7 +145,7 @@ function Floor.__gt(a, b)
 end
 
 for _,floor in ipairs(config.floors) do
-    floors.push_back(Floor{floor})
+    floors:push_back(Floor{floor})
 end
 std.sort(floors)
 
