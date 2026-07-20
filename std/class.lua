@@ -23,7 +23,10 @@ function class:new(name)
             if cls[k] ~= nil then
                 return cls[k]
             else
-                return cls.__get(o, k)
+                if cls.__get ~= nil then
+                    return cls.__get(o, k)
+                end
+                error("Unknown member: " .. k)
             end
         end
     cls.__newindex =
