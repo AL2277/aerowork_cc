@@ -144,7 +144,7 @@ function Floor.__gt(a, b)
     return a > b
 end
 
-for _,floor in config.floors do
+for _,floor in ipairs(config.floors) do
     floors.push_back(Floor{floor})
 end
 std.sort(floors)
@@ -167,7 +167,7 @@ parallel.waitForAny(
             for _, elevator in ipairs(elevators) do
                 elevator:update_arrive()
                 if elevator:is_callable() then
-                    for floor in floors do
+                    for floor in std.iter(floors) do
                         if floor.called and not floor.answered then
                             elevator.peripheral.setTargetFloor(floor.y)
                             elevator.called = true
