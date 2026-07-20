@@ -1,8 +1,9 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "setup" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/std/setup.lua",
     "dependency" : [],
     "files" : {
+        "std/algorithm.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/std/algorithm.lua",
         "std/basic.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/std/basic.lua",
         "std/class.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/std/class.lua",
         "std/container.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/std/container.lua",

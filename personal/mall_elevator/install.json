@@ -1,0 +1,9 @@
+{
+    "version" : "0.0.1",
+    "setup" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/personal/mall_elevator/setup.lua",
+    "dependency" : ["std"],
+    "files" : {
+        "startup.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/personal/mall_elevator/startup.lua",
+        "package/utils/terminal.lua" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/utils/terminal.lua"
+    }
+}
