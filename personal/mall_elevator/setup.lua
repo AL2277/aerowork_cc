@@ -7,7 +7,7 @@ local default_config =
 {
     elevators = {
         {
-            peripheral = "Create_ElevatorPulley_x",
+            peripheral = "Create_ElevatorPulley_1",
             target_offset = 123, -- getCurrentTargetY() - getCurrentY() when stoped
             cabin_pos = { -- x and z are absoulte, y is relative to getCurrentY()
                 corner1 = {x =  7, y = -5, z = 487},
@@ -19,7 +19,7 @@ local default_config =
             },
         },
         {
-            peripheral = "Create_ElevatorPulley_x",
+            peripheral = "Create_ElevatorPulley_0",
             target_offset = 123,
             cabin_pos = {
                 corner1 = {x = 10, y = -5, z = 487},

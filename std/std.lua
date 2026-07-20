@@ -1,4 +1,4 @@
-package.path = package.path .. ";/package/?.lua"
+package.path = package.path .. ";/package/?.lua;/package/std/?.lua"
 local std = {
     __included = {}
 }
