@@ -78,7 +78,9 @@ function vector:__tostring()
 end
 
 function vector:__get(i)
-    if type(i) ~= "number" then
+    if type(i) == "string" then
+        error("Unknown key for vector: " .. i)
+    elseif type(i) ~= "number" then
         error("invalid index type for vector")
     end
     i = math.floor(i)
