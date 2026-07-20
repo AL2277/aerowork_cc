@@ -20,6 +20,18 @@ local link = peripheral.find("redstone_link_bridge")
 local elevators = {}
 local floors = std.vector{};
 
+local function comp_floor_lt(a, b)
+    if type(a) == "table" and a.__cls == "Floor" then a = a.y end
+    if type(b) == "table" and b.__cls == "Floor" then b = b.y end
+    return a < b
+end
+
+local function comp_floor_gt(a, b)
+    if type(a) == "table" and a.__cls == "Floor" then a = a.y end
+    if type(b) == "table" and b.__cls == "Floor" then b = b.y end
+    return a > b
+end
+
 local Elevator = std.class:new("Elevator")
 function Elevator:Elevator(arg)
     local elevator = arg.elevator or arg[1]
@@ -41,15 +53,14 @@ function Elevator:Elevator(arg)
     return obj
 end
 
-function Elevator:offset_pos(arg)
-    local pos = arg.pos or arg[1]
+function Elevator:offset_pos(pos)
     return {x = pos.x, y = pos.y + self.target_offset, z = pos.z}
 end
 
 function Elevator:update_arrive()
     local y = self.peripheral.getCurrentFloor()
     if y ~= nil then
-        local floor = floors[std.lower_bound{floors, y}]
+        local floor = floors[std.lower_bound{floors, y, comp_floor_lt}]
         if floor == nil then print("invalid floor"); return end
         if self.occupied or self.called then
             self.cooldown = time() + 20 * 5 -- 5 seconds
@@ -65,7 +76,7 @@ function Elevator:is_callable()
 end
 
 function Elevator:update_occupied()
-    self.occupied = player.isPlayersInCoord(
+    self.occupied = player.isPlayersInCoords(
         self:offset_pos(self.cabin_pos.corner1),
         self:offset_pos(self.cabin_pos.corner2)
     )
@@ -132,22 +143,10 @@ function Floor:arrived()
     link.sendLinkSignal(self.indicator.freq1, self.indicator.freq2, 0)
 end
 
-function Floor.__lt(a, b)
-    if type(a) == "table" and a.__cls == "Floor" then a = a.y end
-    if type(b) == "table" and b.__cls == "Floor" then b = b.y end
-    return a < b
-end
-
-function Floor.__gt(a, b)
-    if type(a) == "table" and a.__cls == "Floor" then a = a.y end
-    if type(b) == "table" and b.__cls == "Floor" then b = b.y end
-    return a > b
-end
-
 for _,floor in ipairs(config.floors) do
     floors:push_back(Floor{floor})
 end
-std.sort(floors)
+std.sort{floors, comp_floor_lt}
 
 
 parallel.waitForAny(

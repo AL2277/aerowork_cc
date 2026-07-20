@@ -12,7 +12,7 @@ local function sort(arg)
     local comp = arg.comp or arg[2] or std.less
 
     std.make_heap{arr, comp}
-    for l=arr.length,0,-1 do
+    for l=arr.length,1,-1 do
         std.pop_heap{arr, comp, l}
     end
 end
