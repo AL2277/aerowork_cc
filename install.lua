@@ -1,6 +1,6 @@
 VERSION_MAJOR = 1
 VERSION_MINOR = 0
-VERSION_PATCH = 8
+VERSION_PATCH = 9
 
 VERSION = string.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
 
@@ -37,7 +37,9 @@ end
 
 local installed_package = {}
 
-local function install(program, path)
+local function install(program, path, force)
+    force = force or 0
+
     print("Installing program " .. program)
 
     if data[program] == nil then
@@ -56,9 +58,11 @@ local function install(program, path)
         local version_cur = file.readAll()
         file.close()
         print("Found existing version: " .. version_cur)
-        if version_cur == version then
+        if force == 0 and version_cur == version then
             print("Already up to date")
             return
+        elseif force ~= 0 then
+            print("Force reinstalling")
         else
             print("Updating to version: " .. version)
         end
@@ -74,7 +78,11 @@ local function install(program, path)
 
     for _, dep in ipairs(setup_info.dependency) do
         if not installed_package[dep] then
-            install(dep, "/package")
+            if force == 2 then
+                install(dep, "/package", 2)
+            else
+                install(dep, "/package", 0)
+            end
         end
     end
 
@@ -108,7 +116,19 @@ if argc >= 1 then
         return
     end
 
-    install(program, "/")
+    local force = 0
+    if argc >= 2 then
+        if argv[2][0] == "-" then
+            if string.find(argv[2], "f") then
+                force = 1
+                if string.find(argv[2], "r") then
+                    force = 2
+                end
+            end
+        end
+    end
+
+    install(program, "/", force)
 
 else
     print("Error: Missing name")

@@ -1,5 +1,5 @@
 {
-    "installer_version": "1.0.8",
+    "installer_version": "1.0.9",
     "test": "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/test/install.json",
     "package": "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/package_route/install.json",
     "std": "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/std/install.json",

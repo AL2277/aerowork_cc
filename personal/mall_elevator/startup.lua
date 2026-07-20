@@ -93,14 +93,14 @@ function Floor:Floor(arg)
     local obj = {
         name = floor.name,
         call = floor.call,
-        indicator = floor. indicator,
-        y = floor. y,
+        indicator = floor.indicator,
+        y = floor.y,
         called = false,
         answered = false,
         cooldown = 0, -- cooldown until being able to be called again
         expire = 0, -- if the call isn't able to be answered for a long time, it will be reseted
     }
-    link.sendLinkSignal(self.indicator.freq1, self.indicator.freq2, 0)
+    link.sendLinkSignal(obj.indicator.freq1, obj.indicator.freq2, 0)
     return obj
 end
 
