@@ -49,7 +49,7 @@ end
 function Elevator:update_arrive()
     local y = self.peripheral.getCurrentFloor()
     if y ~= nil then
-        local floor = floors[std.lower_bound(floors, y)]
+        local floor = floors[std.lower_bound{floors, y}]
         if floor == nil then print("invalid floor"); return end
         if self.occupied or self.called then
             self.cooldown = time() + 20 * 5 -- 5 seconds
