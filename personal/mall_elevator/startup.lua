@@ -21,14 +21,14 @@ local elevators = {}
 local floors = std.vector{};
 
 local function comp_floor_lt(a, b)
-    if type(a) == "table" and a.__cls == "Floor" then a = a.y end
-    if type(b) == "table" and b.__cls == "Floor" then b = b.y end
+    if type(a) == "table" then a = a.y end
+    if type(b) == "table" then b = b.y end
     return a < b
 end
 
 local function comp_floor_gt(a, b)
-    if type(a) == "table" and a.__cls == "Floor" then a = a.y end
-    if type(b) == "table" and b.__cls == "Floor" then b = b.y end
+    if type(a) == "table" then a = a.y end
+    if type(b) == "table" then b = b.y end
     return a > b
 end
 
@@ -125,7 +125,7 @@ function Floor:update_call()
         self.cooldown = time() + 20 * 4 -- 4 seconds
         self.expire = time() + 20 * 60 * 3 -- 3 minutes
     else
-        if self.expire > time() and not self.answered then
+        if self.expire > time() and (not self.answered) then
             self.called = false
         end
     end
@@ -137,7 +137,7 @@ function Floor:update_call()
 end
 
 function Floor:arrived()
-    self.cooldown = time() + time() + 20 * 4 -- 4 seconds
+    self.cooldown = time() + 20 * 4 -- 4 seconds
     self.called = false
     self.answered = false
     link.sendLinkSignal(self.indicator.freq1, self.indicator.freq2, 0)
@@ -178,5 +178,6 @@ parallel.waitForAny(
             os.sleep(0.05)
         end
     end)
+    -- (function () while true do for e in std.iter(floors) do print(e.answered) end; os.sleep(5) end end)
 )
 

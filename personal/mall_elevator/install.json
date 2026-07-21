@@ -1,5 +1,5 @@
 {
-    "version" : "0.0.5",
+    "version" : "1.0.0",
     "setup" : "https://raw.githubusercontent.com/AL2277/aerowork_cc/master/personal/mall_elevator/setup.lua",
     "dependency" : ["std"],
     "files" : {
